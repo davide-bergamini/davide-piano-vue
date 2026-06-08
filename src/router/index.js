@@ -1,0 +1,28 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+import HomeView from '../views/HomeView.vue'
+import MozartView from '../views/MozartView.vue'
+import BurgmullerView from '../views/BurgmullerView.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/mozart',
+      name: 'mozart',
+      component: MozartView
+    },
+    {
+      path: '/burgmuller',
+      name: 'burgmuller',
+      component: BurgmullerView
+    }
+  ]
+})
+
+export default router
