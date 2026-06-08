@@ -19,6 +19,10 @@ const emit = defineEmits(['select-piece'])
 function hasMidi(piece) {
   return Boolean(piece.midi?.full)
 }
+
+function hasMp3(piece) {
+  return Boolean(piece.mp3)
+}
 </script>
 
 <template>
@@ -30,6 +34,7 @@ function hasMidi(piece) {
           <th>{{ subtitleColumn }}</th>
           <th>Durata</th>
           <th>MIDI</th>
+          <th>MP3</th>
         </tr>
       </thead>
 
@@ -51,6 +56,7 @@ function hasMidi(piece) {
           </td>
 
           <td>{{ piece.subtitle }}</td>
+
           <td>{{ piece.duration }}</td>
 
           <td>
@@ -63,6 +69,20 @@ function hasMidi(piece) {
             </button>
 
             <span v-else class="small text-muted"> Non disponibile </span>
+          </td>
+
+          <td>
+            <a
+              v-if="hasMp3(piece)"
+              class="btn btn-sm btn-outline-secondary"
+              :href="piece.mp3"
+              download
+              title="Scarica MP3"
+            >
+              ⬇
+            </a>
+
+            <span v-else class="small text-muted"> — </span>
           </td>
         </tr>
       </tbody>
