@@ -11,7 +11,7 @@ export const mozartSections = [
         subtitle: 'Allegro',
         duration: '—',
         midi: {
-          full: '',
+          full: `${BASE_URL}midi/k545_1_clean.mid`,
           right: '',
           left: '',
         },
