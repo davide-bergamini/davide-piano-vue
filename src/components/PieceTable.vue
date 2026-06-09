@@ -17,7 +17,15 @@ defineProps({
 const emit = defineEmits(['select-piece'])
 
 function hasMidi(piece) {
-  return Boolean(piece.midi?.full)
+  if (!piece.midi) {
+    return false
+  }
+
+  if (typeof piece.midi === 'string') {
+    return Boolean(piece.midi)
+  }
+
+  return Boolean(piece.midi.full)
 }
 
 function hasMp3(piece) {
