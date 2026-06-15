@@ -1,6 +1,9 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { Midi } from '@tonejs/midi'
+
 import PieceTable from '../components/PieceTable.vue'
-import { mozartSections } from '../data/mozart'
+import { mozartSections as originalMozartSections } from '../data/mozart'
 
 defineProps({
   currentPiece: {
@@ -11,9 +14,48 @@ defineProps({
 
 const emit = defineEmits(['select-piece'])
 
+const mozartSections = ref(
+  originalMozartSections.map((section) => ({
+    ...section,
+    pieces: section.pieces.map((piece) => ({ ...piece })),
+  })),
+)
+
 function availableCount(section) {
   return section.pieces.filter((piece) => piece.midi?.full).length
 }
+
+function formatDuration(seconds) {
+  const minutes = Math.floor(seconds / 60)
+  const secs = Math.round(seconds % 60)
+
+  return `${minutes}:${secs.toString().padStart(2, '0')}`
+}
+
+async function loadMidiDuration(piece) {
+  if (!piece.midi?.full) return
+
+  try {
+    const response = await fetch(piece.midi.full)
+
+    if (!response.ok) return
+
+    const arrayBuffer = await response.arrayBuffer()
+    const midi = new Midi(arrayBuffer)
+
+    piece.duration = formatDuration(midi.duration)
+  } catch (error) {
+    console.error('Errore lettura durata MIDI:', piece.title, error)
+  }
+}
+
+onMounted(async () => {
+  for (const section of mozartSections.value) {
+    for (const piece of section.pieces) {
+      await loadMidiDuration(piece)
+    }
+  }
+})
 </script>
 
 <template>
