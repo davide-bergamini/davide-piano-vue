@@ -15,7 +15,6 @@ export const mozartSections = [
           right: '',
           left: '',
         },
-        mp3: `${BASE_URL}mp3/Mozart_K545_1st_movimento.mp3`,
       },
       {
         id: 'mozart-k545-2',
