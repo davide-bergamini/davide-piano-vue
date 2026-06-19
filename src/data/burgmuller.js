@@ -43,7 +43,12 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 5',
         subtitle: 'Innocenza',
         duration: '—',
-        midi: { full: '', right: '', left: '' },
+        midi: {
+          full: `${BASE_URL}midi/Innocenza_05_Burgmuller.mid`,
+          right: '',
+          left: '',
+        },
+        mp3: `${BASE_URL}mp3/Innocenza_05_Burgmuller.mp3`,
       },
       {
         id: 'op100-6',
