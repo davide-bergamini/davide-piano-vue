@@ -47,20 +47,26 @@ function hasMp3(piece) {
           }"
         >
           <td>
-            <strong>{{ piece.title }}</strong>
+            <div class="piece-title">
+              {{ piece.title }}
+            </div>
 
             <span v-if="currentPiece?.id === piece.id" class="badge bg-primary ms-2">
               Now Playing
             </span>
 
-            <div v-if="!subtitleColumn && piece.subtitle" class="small text-muted">
+            <div v-if="!subtitleColumn && piece.subtitle" class="piece-subtitle">
               {{ piece.subtitle }}
             </div>
           </td>
 
-          <td v-if="subtitleColumn">{{ piece.subtitle }}</td>
+          <td v-if="subtitleColumn">
+            {{ piece.subtitle }}
+          </td>
 
-          <td>{{ piece.duration }}</td>
+          <td>
+            {{ piece.duration }}
+          </td>
 
           <td>
             <button
@@ -71,13 +77,13 @@ function hasMp3(piece) {
               Play
             </button>
 
-            <span v-else class="small text-muted">—</span>
+            <span v-else class="small text-muted"> — </span>
           </td>
 
           <td>
             <div v-if="hasMp3(piece)" class="d-flex gap-2 align-items-center">
               <button
-                class="btn btn-sm btn-success"
+                class="mp3-play-button"
                 type="button"
                 title="Ascolta MP3"
                 @click="emit('select-mp3', piece)"
@@ -95,10 +101,47 @@ function hasMp3(piece) {
               </a>
             </div>
 
-            <span v-else class="small text-muted">—</span>
+            <span v-else class="small text-muted"> — </span>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<style scoped>
+.piece-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.piece-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.mp3-play-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: #198754;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.mp3-play-button:hover {
+  background: #157347;
+}
+</style>
