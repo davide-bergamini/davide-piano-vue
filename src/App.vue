@@ -43,6 +43,7 @@ function stopMp3() {
   </div>
 
   <MidiPlayer
+    v-if="currentPiece || currentMp3"
     :current-piece="currentPiece"
     :current-mp3="currentMp3"
     @stop="stopPiece"
