@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 defineProps({
   pieces: {
     type: Array,
@@ -16,12 +18,18 @@ defineProps({
 
 const emit = defineEmits(['select-piece'])
 
+const currentMp3 = ref(null)
+
 function hasMidi(piece) {
   return Boolean(piece.midi?.full)
 }
 
 function hasMp3(piece) {
   return Boolean(piece.mp3)
+}
+
+function playMp3(piece) {
+  currentMp3.value = piece
 }
 </script>
 
@@ -67,24 +75,42 @@ function hasMp3(piece) {
               Play
             </button>
 
-            <span v-else class="small text-muted"> — </span>
+            <span v-else class="small text-muted">—</span>
           </td>
 
           <td>
-            <a
-              v-if="hasMp3(piece)"
-              class="btn btn-sm btn-outline-secondary"
-              :href="piece.mp3"
-              download
-              title="Scarica MP3"
-            >
-              ⬇
-            </a>
+            <div v-if="hasMp3(piece)" class="d-flex gap-2 align-items-center">
+              <button
+                class="btn btn-sm btn-success"
+                type="button"
+                title="Ascolta MP3"
+                @click="playMp3(piece)"
+              >
+                ▶
+              </button>
 
-            <span v-else class="small text-muted"> — </span>
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                :href="piece.mp3"
+                download
+                title="Scarica MP3"
+              >
+                ⬇
+              </a>
+            </div>
+
+            <span v-else class="small text-muted">—</span>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <div v-if="currentMp3" class="card mt-3">
+      <div class="card-header">MP3 in ascolto: {{ currentMp3.title }}</div>
+
+      <div class="card-body">
+        <audio :src="currentMp3.mp3" controls autoplay class="w-100"></audio>
+      </div>
+    </div>
   </div>
 </template>
