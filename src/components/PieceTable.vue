@@ -10,7 +10,7 @@ defineProps({
   },
   subtitleColumn: {
     type: String,
-    default: 'Tempo',
+    default: '',
   },
 })
 
@@ -31,7 +31,7 @@ function hasMp3(piece) {
       <thead>
         <tr>
           <th>Brano</th>
-          <th>{{ subtitleColumn }}</th>
+          <th v-if="subtitleColumn">{{ subtitleColumn }}</th>
           <th>Durata</th>
           <th>MIDI</th>
           <th>MP3</th>
@@ -52,9 +52,13 @@ function hasMp3(piece) {
             <span v-if="currentPiece?.id === piece.id" class="badge bg-primary ms-2">
               Now Playing
             </span>
+
+            <div v-if="!subtitleColumn && piece.subtitle" class="small text-muted">
+              {{ piece.subtitle }}
+            </div>
           </td>
 
-          <td>{{ piece.subtitle }}</td>
+          <td v-if="subtitleColumn">{{ piece.subtitle }}</td>
 
           <td>{{ piece.duration }}</td>
 

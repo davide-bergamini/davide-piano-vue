@@ -64,7 +64,7 @@ onMounted(async () => {
 
     <h2 class="mb-1">Friedrich Burgmüller</h2>
 
-    <p class="text-muted mb-4">Studi facili e progressivi per pianoforte</p>
+    <p class="text-muted mb-4">25 studi facili e progressivi per pianoforte</p>
 
     <div v-for="section in burgmullerSections" :key="section.id" class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
@@ -76,7 +76,7 @@ onMounted(async () => {
       <PieceTable
         :pieces="section.pieces"
         :current-piece="currentPiece"
-        subtitle-column="Titolo"
+        subtitle-column=""
         @select-piece="emit('select-piece', $event)"
         @select-mp3="emit('select-mp3', $event)"
       />

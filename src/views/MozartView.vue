@@ -76,7 +76,7 @@ onMounted(async () => {
       <PieceTable
         :pieces="section.pieces"
         :current-piece="currentPiece"
-        subtitle-column="Tempo"
+        subtitle-column=""
         @select-piece="emit('select-piece', $event)"
         @select-mp3="emit('select-mp3', $event)"
       />
