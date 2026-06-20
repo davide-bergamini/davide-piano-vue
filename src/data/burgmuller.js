@@ -29,7 +29,12 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 3',
         subtitle: 'Pastorale',
         duration: '—',
-        midi: { full: '', right: '', left: '' },
+        midi: {
+          full: `${BASE_URL}midi/Pastorale_03_Burgmuller.mid`,
+          right: '',
+          left: '',
+        },
+        mp3: `${BASE_URL}mp3/Pastorale_03_Burgmuller.mp3`,
       },
       {
         id: 'op100-4',
