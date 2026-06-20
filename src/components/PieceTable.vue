@@ -32,7 +32,10 @@ function hasMp3(piece) {
         <tr>
           <th>Brano</th>
           <th v-if="subtitleColumn">{{ subtitleColumn }}</th>
-          <th>Durata</th>
+
+          <!-- Su mobile questa colonna viene nascosta via CSS -->
+          <th class="duration-column">Durata</th>
+
           <th>MIDI</th>
           <th>MP3</th>
         </tr>
@@ -64,44 +67,63 @@ function hasMp3(piece) {
             {{ piece.subtitle }}
           </td>
 
-          <td>
+          <!-- Su mobile questa colonna viene nascosta via CSS -->
+          <td class="duration-column">
             {{ piece.duration }}
           </td>
 
           <td>
-            <div v-if="hasMidi(piece)" class="d-flex gap-2 align-items-center">
-              <button
-                class="midi-play-button"
-                type="button"
+            <div v-if="hasMidi(piece)" class="action-buttons">
+              <span
+                class="round-action midi-play-button"
+                role="button"
+                tabindex="0"
                 title="Ascolta MIDI"
                 @click="emit('select-piece', piece)"
+                @keydown.enter="emit('select-piece', piece)"
+                @keydown.space.prevent="emit('select-piece', piece)"
               >
                 ▶
-              </button>
+              </span>
 
-              <a class="download-button" :href="piece.midi.full" download title="Scarica MIDI">
+              <a
+                class="round-action download-button"
+                :href="piece.midi.full"
+                download
+                title="Scarica MIDI"
+              >
                 ⬇
               </a>
             </div>
 
-            <span v-else class="small text-muted"> — </span>
+            <span v-else class="small text-muted">—</span>
           </td>
 
           <td>
-            <div v-if="hasMp3(piece)" class="d-flex gap-2 align-items-center">
-              <button
-                class="mp3-play-button"
-                type="button"
+            <div v-if="hasMp3(piece)" class="action-buttons">
+              <span
+                class="round-action mp3-play-button"
+                role="button"
+                tabindex="0"
                 title="Ascolta MP3"
                 @click="emit('select-mp3', piece)"
+                @keydown.enter="emit('select-mp3', piece)"
+                @keydown.space.prevent="emit('select-mp3', piece)"
               >
                 ▶
-              </button>
+              </span>
 
-              <a class="download-button" :href="piece.mp3" download title="Scarica MP3"> ⬇ </a>
+              <a
+                class="round-action download-button"
+                :href="piece.mp3"
+                download
+                title="Scarica MP3"
+              >
+                ⬇
+              </a>
             </div>
 
-            <span v-else class="small text-muted"> — </span>
+            <span v-else class="small text-muted">—</span>
           </td>
         </tr>
       </tbody>
@@ -121,15 +143,21 @@ function hasMp3(piece) {
   color: #6c757d;
 }
 
-.midi-play-button,
-.mp3-play-button,
-.download-button {
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.round-action {
   width: 32px;
   height: 32px;
-  border: none;
+  border: 0;
   border-radius: 50%;
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1;
   cursor: pointer;
 
   display: inline-flex;
@@ -137,10 +165,12 @@ function hasMp3(piece) {
   justify-content: center;
 
   padding: 0;
+  margin: 0;
   text-decoration: none;
 
   appearance: none;
   -webkit-appearance: none;
+  user-select: none;
 }
 
 .midi-play-button {
@@ -166,5 +196,21 @@ function hasMp3(piece) {
 .download-button:hover {
   background: #475569;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .duration-column {
+    display: none;
+  }
+
+  .round-action {
+    width: 30px;
+    height: 30px;
+    font-size: 0.82rem;
+  }
+
+  .action-buttons {
+    gap: 6px;
+  }
 }
 </style>
