@@ -287,68 +287,53 @@ body {
 
 @media (max-width: 900px) {
   .midi-player {
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 10px;
-    min-height: 82px;
-    padding: 12px 14px;
-    overflow-x: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-height: auto;
+    padding: 14px;
   }
 
   .player-info {
-    min-width: 110px;
-    max-width: 145px;
-    flex-shrink: 0;
-  }
-
-  .player-info strong,
-  .player-info span,
-  .player-info small {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    min-width: auto;
+    max-width: none;
   }
 
   .progress-wrapper {
-    flex: 1;
-    min-width: 150px;
-    gap: 8px;
-  }
-
-  .progress-wrapper span {
-    min-width: 34px;
-    font-size: 0.78rem;
+    width: 100%;
+    min-width: 0;
   }
 
   .player-controls {
-    flex-shrink: 0;
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 10px;
   }
 
   .player-controls button {
-    min-width: 38px;
-    width: 38px;
-    height: 38px;
+    flex-shrink: 0;
+    min-width: 42px;
+    width: 42px;
+    height: 42px;
     padding: 0;
   }
 
   .tempo-label {
-    font-size: 0.76rem;
-    gap: 6px;
+    flex: 1;
+    min-width: 0;
   }
 
   .tempo-label input[type='range'] {
-    width: 82px;
+    flex: 1;
+    min-width: 80px;
   }
 
   .mp3-audio {
-    flex: 1;
-    min-width: 170px;
-    height: 38px;
+    width: 100%;
+    min-width: 0;
   }
 }
 
