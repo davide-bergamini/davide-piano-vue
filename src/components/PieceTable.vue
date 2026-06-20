@@ -69,13 +69,20 @@ function hasMp3(piece) {
           </td>
 
           <td>
-            <button
-              v-if="hasMidi(piece)"
-              class="btn btn-sm btn-primary"
-              @click="emit('select-piece', piece)"
-            >
-              Play
-            </button>
+            <div v-if="hasMidi(piece)" class="d-flex gap-2 align-items-center">
+              <button
+                class="midi-play-button"
+                type="button"
+                title="Ascolta MIDI"
+                @click="emit('select-piece', piece)"
+              >
+                ▶
+              </button>
+
+              <a class="download-button" :href="piece.midi.full" download title="Scarica MIDI">
+                ⬇
+              </a>
+            </div>
 
             <span v-else class="small text-muted"> — </span>
           </td>
@@ -91,14 +98,7 @@ function hasMp3(piece) {
                 ▶
               </button>
 
-              <a
-                class="btn btn-sm btn-outline-secondary"
-                :href="piece.mp3"
-                download
-                title="Scarica MP3"
-              >
-                ⬇
-              </a>
+              <a class="download-button" :href="piece.mp3" download title="Scarica MP3"> ⬇ </a>
             </div>
 
             <span v-else class="small text-muted"> — </span>
@@ -121,12 +121,13 @@ function hasMp3(piece) {
   color: #6c757d;
 }
 
-.mp3-play-button {
+.midi-play-button,
+.mp3-play-button,
+.download-button {
   width: 32px;
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: #198754;
   color: white;
   font-size: 0.9rem;
   cursor: pointer;
@@ -136,12 +137,34 @@ function hasMp3(piece) {
   justify-content: center;
 
   padding: 0;
+  text-decoration: none;
 
   appearance: none;
   -webkit-appearance: none;
 }
 
+.midi-play-button {
+  background: #0d6efd;
+}
+
+.midi-play-button:hover {
+  background: #0b5ed7;
+}
+
+.mp3-play-button {
+  background: #198754;
+}
+
 .mp3-play-button:hover {
   background: #157347;
+}
+
+.download-button {
+  background: #64748b;
+}
+
+.download-button:hover {
+  background: #475569;
+  color: white;
 }
 </style>
