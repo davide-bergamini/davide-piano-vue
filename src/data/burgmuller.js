@@ -89,7 +89,12 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 8',
         subtitle: 'La graziosa',
         duration: '—',
-        midi: { full: '', right: '', left: '' },
+        midi: {
+          full: `${BASE_URL}midi/Graziosa_08_Burgmuller.mid`,
+          right: '',
+          left: '',
+        },
+        mp3: `${BASE_URL}mp3/Graziosa_08_Burgmuller.mp3`,
       },
       {
         id: 'op100-9',
