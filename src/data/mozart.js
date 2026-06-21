@@ -11,10 +11,11 @@ export const mozartSections = [
         subtitle: 'Allegro',
         duration: '—',
         midi: {
-          full: `${BASE_URL}midi/k545_1_clean.mid`,
+          full: `${BASE_URL}midi/Mozart_K545_1mvt.mid`,
           right: '',
           left: '',
         },
+        mp3: `${BASE_URL}mp3/Mozart_K545_1mvt.mp3`,
       },
       {
         id: 'mozart-k545-2',
