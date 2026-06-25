@@ -124,132 +124,121 @@ body {
   font-weight: 600;
 }
 
-.discogs-list {
-  background: white;
-  border-top: 1px solid #d7d7d7;
-}
+/* Area superiore compositore */
 
-.discogs-list-head {
+.catalog-hero {
   display: grid;
-  grid-template-columns: 1fr 130px 90px 90px;
-  gap: 16px;
-  padding: 9px 0;
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  grid-template-columns: 210px 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 34px;
 }
 
-.discogs-row {
-  display: grid;
-  grid-template-columns: 1fr 130px 90px 90px;
-  gap: 16px;
-  align-items: center;
-  padding: 11px 0;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.discogs-row:hover {
-  background: #fafafa;
-}
-
-.discogs-row.is-playing {
-  background: #f7faff;
-}
-
-.piece-main {
-  min-width: 0;
-}
-
-.piece-title-line {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  min-width: 0;
-}
-
-.piece-title {
-  font-size: 0.98rem;
-  font-weight: 700;
+.catalog-cover {
+  width: 210px;
+  min-height: 210px;
+  background: #e5e5e5;
+  border: 1px solid #ccc;
   color: #222;
-  line-height: 1.25;
-  white-space: nowrap;
-}
-
-.piece-subtitle {
-  font-size: 0.92rem;
-  color: #666;
-  line-height: 1.25;
-  white-space: nowrap;
-}
-
-.playing-label {
-  display: inline-block;
-  margin-left: 8px;
-  color: #2563eb;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.published-date {
-  color: #555;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.coming-soon-date {
-  color: #888;
-  font-style: italic;
-  font-size: 0.88rem;
-}
-
-.media-actions {
   display: flex;
-  align-items: center;
-  gap: 9px;
-  white-space: nowrap;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
 }
 
-.icon-action {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  width: 22px;
-  height: 22px;
-  color: #444;
-  text-decoration: none;
-  display: inline-flex;
+.catalog-cover-icon {
+  width: 64px;
+  height: 64px;
+  background: white;
+  border: 1px solid #ccc;
+  color: #222;
+  display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  line-height: 1;
-  font-size: 0.84rem;
-  appearance: none;
-  -webkit-appearance: none;
+  font-size: 2rem;
+  font-weight: 900;
 }
 
-.icon-action:hover {
-  color: #000;
+.catalog-cover-keys {
+  display: flex;
+  gap: 2px;
+  height: 50px;
+  align-items: flex-end;
 }
 
-.midi-play {
-  color: #2563eb;
+.catalog-cover-keys span {
+  flex: 1;
+  height: 42px;
+  background: white;
+  border: 1px solid #ccc;
 }
 
-.mp3-play {
-  color: #198754;
+.catalog-info {
+  background: white;
+  padding: 0;
 }
 
-.download {
-  color: #555;
+.catalog-info h2 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
 }
 
-.muted {
-  color: #aaa;
+.catalog-description {
+  color: #666;
+  max-width: 720px;
+  margin-bottom: 20px;
 }
+
+.catalog-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.catalog-meta div {
+  padding: 10px 12px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.catalog-meta dt {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.catalog-meta dd {
+  margin: 3px 0 0;
+  color: #222;
+  font-weight: 700;
+}
+
+/* Vecchio titolo Tracklist: tenuto commentato se vorrai riattivarlo */
+
+/*
+.catalog-section-title {
+  margin: 26px 0 12px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.catalog-section-title h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.catalog-section-title p {
+  color: #666;
+  margin: 4px 0 0;
+}
+*/
+
+/* Player MIDI / MP3 */
 
 .midi-player {
   position: fixed;
@@ -335,6 +324,102 @@ body {
   min-width: 260px;
 }
 
+/* Timeline */
+
+.visual-timeline {
+  position: relative;
+  max-width: 980px;
+  margin: 40px auto 0;
+  padding: 20px 0;
+}
+
+.visual-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #2563eb, #198754);
+  border-radius: 999px;
+}
+
+.visual-timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 0 42px 34px 0;
+}
+
+.visual-timeline-item.timeline-right {
+  margin-left: 50%;
+  padding: 0 0 34px 42px;
+}
+
+.visual-timeline-dot {
+  position: absolute;
+  top: 22px;
+  right: -11px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border: 5px solid #2563eb;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.16);
+}
+
+.timeline-right .visual-timeline-dot {
+  left: -11px;
+  right: auto;
+  border-color: #198754;
+  box-shadow: 0 0 0 6px rgba(25, 135, 84, 0.16);
+}
+
+.visual-timeline-card {
+  background: white;
+  border-radius: 0;
+  padding: 20px 22px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.visual-timeline-card h5 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.timeline-date {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 0;
+  color: #2563eb;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.timeline-subtitle {
+  margin: 0 0 4px;
+  color: #555;
+  font-weight: 600;
+}
+
+.timeline-composer {
+  margin: 0 0 12px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.timeline-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+
 @media (max-width: 900px) {
   .midi-player {
     flex-direction: column;
@@ -417,168 +502,6 @@ body {
     font-size: 1.7rem;
   }
 
-  .discogs-list-head {
-    display: none;
-  }
-
-  .discogs-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'main'
-      'mobile';
-    gap: 8px;
-    padding: 13px 0;
-  }
-
-  .piece-main {
-    grid-area: main;
-  }
-
-  .piece-title-line {
-    display: block;
-  }
-
-  .piece-title,
-  .piece-subtitle {
-    display: block;
-    white-space: normal;
-  }
-
-  .published-date {
-    grid-row: 2;
-    grid-column: 1;
-    justify-self: start;
-    font-size: 0.86rem;
-  }
-
-  .discogs-row > .media-actions:nth-of-type(1) {
-    grid-row: 2;
-    grid-column: 1;
-    justify-self: center;
-  }
-
-  .discogs-row > .media-actions:nth-of-type(2) {
-    grid-row: 2;
-    grid-column: 1;
-    justify-self: end;
-  }
-
-  .discogs-row > .media-actions:nth-of-type(1)::before {
-    content: 'MIDI';
-    color: #777;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-right: 2px;
-  }
-
-  .discogs-row > .media-actions:nth-of-type(2)::before {
-    content: 'MP3';
-    color: #777;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-right: 2px;
-  }
-
-  .icon-action {
-    width: 21px;
-    height: 21px;
-  }
-
-  .midi-player {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-  }
-}
-
-.catalog-hero {
-  display: grid;
-  grid-template-columns: 210px 1fr;
-  gap: 28px;
-  align-items: start;
-  margin-bottom: 34px;
-}
-
-.catalog-cover {
-  width: 210px;
-  min-height: 210px;
-  background: #e5e5e5;
-  border: 1px solid #ccc;
-  color: #222;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 18px;
-}
-
-.catalog-cover-icon {
-  width: 64px;
-  height: 64px;
-  background: white;
-  border: 1px solid #ccc;
-  color: #222;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 900;
-}
-
-.catalog-cover-keys {
-  display: flex;
-  gap: 2px;
-  height: 50px;
-  align-items: flex-end;
-}
-
-.catalog-cover-keys span {
-  flex: 1;
-  height: 42px;
-  background: white;
-  border: 1px solid #ccc;
-}
-
-.catalog-info {
-  background: white;
-  padding: 0;
-}
-
-.catalog-description {
-  color: #666;
-  max-width: 720px;
-  margin-bottom: 20px;
-}
-
-.catalog-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-  gap: 0;
-  margin: 0;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-}
-
-.catalog-meta div {
-  padding: 10px 12px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-}
-
-.catalog-meta dt {
-  font-size: 0.75rem;
-  color: #666;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.catalog-meta dd {
-  margin: 3px 0 0;
-  color: #222;
-  font-weight: 700;
-}
-
-@media (max-width: 768px) {
   .catalog-hero {
     grid-template-columns: 1fr;
   }
@@ -590,5 +513,32 @@ body {
 
   .catalog-meta {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .midi-player {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .visual-timeline::before {
+    left: 11px;
+  }
+
+  .visual-timeline-item,
+  .visual-timeline-item.timeline-right {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 26px 36px;
+  }
+
+  .visual-timeline-dot,
+  .timeline-right .visual-timeline-dot {
+    left: 0;
+    right: auto;
+  }
+
+  .visual-timeline-card {
+    padding: 17px 18px;
   }
 }
