@@ -291,11 +291,10 @@ body {
   font-weight: 700;
 }
 
-.coming-soon {
-  margin-top: 4px;
-  font-size: 0.82rem;
-  color: #777;
+.coming-soon-date {
+  color: #888;
   font-style: italic;
+  font-size: 0.88rem;
 }
 
 .published-date {
