@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { Midi } from '@tonejs/midi'
 
 import PieceTable from '../components/PieceTable.vue'
@@ -20,6 +20,14 @@ const mozartSections = ref(
     pieces: section.pieces.map((piece) => ({ ...piece })),
   })),
 )
+
+const allPieces = computed(() => mozartSections.value.flatMap((section) => section.pieces))
+
+const midiCount = computed(() => allPieces.value.filter((piece) => piece.midi?.full).length)
+
+const mp3Count = computed(() => allPieces.value.filter((piece) => piece.mp3).length)
+
+const publishedCount = computed(() => allPieces.value.filter((piece) => piece.publishedAt).length)
 
 function availableCount(section) {
   return section.pieces.filter((piece) => piece.midi?.full).length
@@ -60,13 +68,59 @@ onMounted(async () => {
 
 <template>
   <section>
-    <h6 class="text-muted mb-4">Compositori classica</h6>
+    <div class="catalog-hero">
+      <div class="catalog-cover">
+        <div class="catalog-cover-icon">M</div>
+        <div class="catalog-cover-keys">
+          <span v-for="n in 8" :key="n"></span>
+        </div>
+      </div>
 
-    <h2 class="mb-1">Wolfgang Amadeus Mozart</h2>
+      <div class="catalog-info">
+        <h6 class="text-muted mb-2">Compositore classico</h6>
 
-    <p class="text-muted mb-4">Sonate per pianoforte</p>
+        <h2 class="mb-2">Wolfgang Amadeus Mozart</h2>
 
-    <div v-for="section in mozartSections" :key="section.id" class="card mb-4">
+        <p class="catalog-description">
+          Sonate per pianoforte, registrazioni MIDI e versioni MP3 pubblicate nel catalogo personale
+          Davide Piano.
+        </p>
+
+        <dl class="catalog-meta">
+          <div>
+            <dt>Formato</dt>
+            <dd>MIDI / MP3</dd>
+          </div>
+
+          <div>
+            <dt>Repertorio</dt>
+            <dd>Sonate per pianoforte</dd>
+          </div>
+
+          <div>
+            <dt>Brani pubblicati</dt>
+            <dd>{{ publishedCount }}</dd>
+          </div>
+
+          <div>
+            <dt>MIDI disponibili</dt>
+            <dd>{{ midiCount }}</dd>
+          </div>
+
+          <div>
+            <dt>MP3 disponibili</dt>
+            <dd>{{ mp3Count }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="catalog-section-title">
+      <h3>Tracklist</h3>
+      <p>Elenco delle sonate e dei movimenti disponibili.</p>
+    </div>
+
+    <div v-for="section in mozartSections" :key="section.id" class="card mb-4 catalog-card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <span>{{ section.title }}</span>
 

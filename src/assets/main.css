@@ -379,3 +379,135 @@ body {
     padding: 12px 9px;
   }
 }
+
+.catalog-hero {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 30px;
+  align-items: stretch;
+  margin-bottom: 34px;
+}
+
+.catalog-cover {
+  min-height: 230px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #111827, #334155);
+  color: white;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+}
+
+.catalog-cover-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: white;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.catalog-cover-keys {
+  display: flex;
+  gap: 3px;
+  height: 58px;
+  align-items: flex-end;
+}
+
+.catalog-cover-keys span {
+  flex: 1;
+  height: 48px;
+  background: white;
+  border-radius: 0 0 4px 4px;
+}
+
+.catalog-info {
+  background: white;
+  border-radius: 22px;
+  padding: 28px 30px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.09);
+}
+
+.catalog-info h2 {
+  font-size: 2.4rem;
+}
+
+.catalog-description {
+  color: #64748b;
+  max-width: 680px;
+  margin-bottom: 24px;
+}
+
+.catalog-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+.catalog-meta div {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.catalog-meta dt {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.catalog-meta dd {
+  margin: 3px 0 0;
+  color: #111827;
+  font-weight: 800;
+}
+
+.catalog-section-title {
+  margin-bottom: 16px;
+}
+
+.catalog-section-title h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.catalog-section-title p {
+  color: #64748b;
+  margin: 4px 0 0;
+}
+
+.catalog-card {
+  border-radius: 18px;
+}
+
+@media (max-width: 768px) {
+  .catalog-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-cover {
+    min-height: 180px;
+  }
+
+  .catalog-info {
+    padding: 22px;
+  }
+
+  .catalog-info h2 {
+    font-size: 1.9rem;
+  }
+
+  .catalog-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+}

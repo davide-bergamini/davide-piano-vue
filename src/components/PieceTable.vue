@@ -27,6 +27,12 @@ function hasMp3(piece) {
 function isComingSoon(piece) {
   return !hasMidi(piece) && !hasMp3(piece)
 }
+
+function formatDate(dateString) {
+  if (!dateString) return ''
+
+  return new Date(dateString).toLocaleDateString('it-IT')
+}
 </script>
 
 <template>
@@ -40,7 +46,11 @@ function isComingSoon(piece) {
             {{ subtitleColumn }}
           </th>
 
-          <th class="duration-column">Durata</th>
+          <th>Pubblicato</th>
+
+          <!--
+          <th>Durata</th>
+          -->
 
           <th>MIDI</th>
           <th>MP3</th>
@@ -75,9 +85,19 @@ function isComingSoon(piece) {
             {{ piece.subtitle }}
           </td>
 
-          <td class="duration-column">
+          <td>
+            <span v-if="piece.publishedAt">
+              {{ formatDate(piece.publishedAt) }}
+            </span>
+
+            <span v-else class="small text-muted"> — </span>
+          </td>
+
+          <!--
+          <td>
             {{ piece.duration }}
           </td>
+          -->
 
           <td>
             <div v-if="hasMidi(piece)" class="action-buttons">
@@ -185,16 +205,12 @@ function isComingSoon(piece) {
 .round-action {
   width: 32px;
   height: 32px;
-
   border-radius: 50%;
-
   color: white;
   font-size: 0.88rem;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   user-select: none;
 }
@@ -218,11 +234,9 @@ function isComingSoon(piece) {
 .download-button {
   width: 28px;
   height: 28px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   color: #64748b;
   text-decoration: none;
 }
@@ -232,10 +246,6 @@ function isComingSoon(piece) {
 }
 
 @media (max-width: 768px) {
-  .duration-column {
-    display: none;
-  }
-
   .round-action {
     width: 30px;
     height: 30px;
