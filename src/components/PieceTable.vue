@@ -269,10 +269,15 @@ function formatDate(dateString) {
 }
 
 @media (max-width: 768px) {
-  .piece-list-head {
+  .piece-list-head,
+  .piece-top {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-columns: minmax(0, 1fr) 72px 44px 44px;
     gap: 8px;
+    align-items: center;
+  }
+
+  .piece-list-head {
     padding: 8px 0;
     border-bottom: 1px solid #d7d7d7;
     color: #666;
@@ -284,13 +289,6 @@ function formatDate(dateString) {
 
   .piece-row {
     padding: 12px 0;
-  }
-
-  .piece-top {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
-    gap: 8px;
-    align-items: center;
   }
 
   .piece-title-area {
@@ -317,6 +315,7 @@ function formatDate(dateString) {
   }
 
   .piece-date {
+    justify-self: start;
     font-size: 0.78rem;
   }
 
@@ -325,6 +324,8 @@ function formatDate(dateString) {
   }
 
   .piece-actions {
+    width: 44px;
+    justify-self: start;
     gap: 4px;
   }
 
