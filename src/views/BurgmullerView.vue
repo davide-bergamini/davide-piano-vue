@@ -56,8 +56,6 @@ onMounted(async () => {
 
 <template>
   <section>
-    <h6 class="text-muted mb-4">Compositori classica</h6>
-
     <div class="catalog-hero">
       <div class="catalog-cover">
         <img
@@ -68,6 +66,8 @@ onMounted(async () => {
       </div>
 
       <div class="catalog-info">
+        <h6 class="text-muted mb-2">Compositore classico</h6>
+
         <h2 class="mb-2">Friedrich Burgmüller</h2>
 
         <p class="catalog-description">

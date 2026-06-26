@@ -5,6 +5,8 @@ body {
   color: #222;
 }
 
+/* Header */
+
 .site-header {
   background: #222;
   color: white;
@@ -36,16 +38,12 @@ body {
 .top-nav a {
   display: inline-flex;
   align-items: center;
-
   padding: 7px 14px;
-
   color: #ddd;
   text-decoration: none;
   font-size: 0.92rem;
   font-weight: 500;
-
   border-radius: 999px;
-
   transition:
     background-color 0.18s ease,
     color 0.18s ease;
@@ -57,10 +55,12 @@ body {
 }
 
 .top-nav a.router-link-active {
-  background: #ffffff;
+  background: #fff;
   color: #222;
   font-weight: 600;
 }
+
+/* Layout */
 
 .page-layout {
   display: flex;
@@ -141,6 +141,8 @@ body {
   color: #222;
 }
 
+/* Card base */
+
 .card {
   border: 0;
   border-radius: 0;
@@ -161,7 +163,7 @@ body {
   font-weight: 600;
 }
 
-/* Area superiore compositore */
+/* Compositore */
 
 .catalog-hero {
   display: grid;
@@ -177,37 +179,24 @@ body {
   background: #e5e5e5;
   border: 1px solid #ccc;
   color: #222;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 18px;
+  padding: 0;
+  overflow: hidden;
 }
 
-.catalog-cover-icon {
-  width: 64px;
-  height: 64px;
-  background: white;
-  border: 1px solid #ccc;
-  color: #222;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 900;
+.composer-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
-.catalog-cover-keys {
-  display: flex;
-  gap: 2px;
-  height: 50px;
-  align-items: flex-end;
-}
-
-.catalog-cover-keys span {
-  flex: 1;
-  height: 42px;
-  background: white;
-  border: 1px solid #ccc;
+.catalog-cover:hover .composer-photo {
+  transform: scale(1.03);
+  filter: contrast(1.06);
 }
 
 .catalog-info {
@@ -224,34 +213,6 @@ body {
   color: #666;
   max-width: 720px;
   margin-bottom: 20px;
-}
-
-.catalog-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-  gap: 0;
-  margin: 0;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-}
-
-.catalog-meta div {
-  padding: 10px 12px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-}
-
-.catalog-meta dt {
-  font-size: 0.75rem;
-  color: #666;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.catalog-meta dd {
-  margin: 3px 0 0;
-  color: #222;
-  font-weight: 700;
 }
 
 /* Player MIDI / MP3 */
@@ -340,98 +301,53 @@ body {
   min-width: 260px;
 }
 
-/* Timeline */
-
-.visual-timeline {
-  position: relative;
-  max-width: 980px;
-  margin: 40px auto 0;
-  padding: 20px 0;
-}
-
-.visual-timeline::before {
-  content: '';
+.timeline-dot {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 4px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #2563eb, #198754);
-  border-radius: 999px;
-}
-
-.visual-timeline-item {
-  position: relative;
-  width: 50%;
-  padding: 0 42px 34px 0;
-}
-
-.visual-timeline-item.timeline-right {
-  margin-left: 50%;
-  padding: 0 0 34px 42px;
-}
-
-.visual-timeline-dot {
-  position: absolute;
-  top: 22px;
-  right: -11px;
-  width: 22px;
-  height: 22px;
-  background: white;
-  border: 5px solid #2563eb;
+  top: 3px;
+  left: -26px;
+  width: 14px;
+  height: 14px;
+  background: #222;
+  border: 3px solid white;
   border-radius: 50%;
+  box-shadow: 0 0 0 1px #222;
   z-index: 2;
-  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.16);
 }
 
-.timeline-right .visual-timeline-dot {
-  left: -11px;
-  right: auto;
-  border-color: #198754;
-  box-shadow: 0 0 0 6px rgba(25, 135, 84, 0.16);
+.timeline-date {
+  font-size: 0.82rem;
+  color: #666;
+  margin-bottom: 3px;
 }
 
-.visual-timeline-card {
-  background: white;
-  border-radius: 0;
-  padding: 20px 22px;
-  border: 1px solid #ddd;
-  box-shadow: none;
-}
-
-.visual-timeline-card h5 {
-  margin: 0 0 6px;
-  font-size: 1.15rem;
+.timeline-title {
   font-weight: 700;
   color: #222;
 }
 
-.timeline-date {
-  display: inline-block;
-  margin-bottom: 10px;
-  padding: 0;
-  color: #2563eb;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
 .timeline-subtitle {
-  margin: 0 0 4px;
-  color: #555;
-  font-weight: 600;
-}
-
-.timeline-composer {
-  margin: 0 0 12px;
   color: #666;
   font-size: 0.9rem;
 }
 
-.timeline-badges {
+.timeline-composer {
+  margin-top: 3px;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.timeline-formats {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.timeline-formats span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  color: #555;
 }
 
 /* Responsive */
@@ -447,7 +363,6 @@ body {
 
   .player-info {
     min-width: auto;
-    max-width: none;
   }
 
   .progress-wrapper {
@@ -457,16 +372,11 @@ body {
 
   .player-controls {
     width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    flex-wrap: nowrap;
     gap: 10px;
   }
 
   .player-controls button {
-    flex-shrink: 0;
-    min-width: 42px;
     width: 42px;
     height: 42px;
     padding: 0;
@@ -497,7 +407,7 @@ body {
 
   .top-nav {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
   }
 
   .page-layout {
@@ -527,8 +437,8 @@ body {
     min-height: 160px;
   }
 
-  .catalog-meta {
-    grid-template-columns: 1fr 1fr;
+  .composer-photo {
+    min-height: 160px;
   }
 
   .midi-player {
@@ -536,42 +446,69 @@ body {
     right: 10px;
     bottom: 10px;
   }
-
-  .visual-timeline::before {
-    left: 11px;
-  }
-
-  .visual-timeline-item,
-  .visual-timeline-item.timeline-right {
-    width: 100%;
-    margin-left: 0;
-    padding: 0 0 26px 36px;
-  }
-
-  .visual-timeline-dot,
-  .timeline-right .visual-timeline-dot {
-    left: 0;
-    right: auto;
-  }
-
-  .visual-timeline-card {
-    padding: 17px 18px;
-  }
 }
 
-.catalog-cover {
-  width: 210px;
-  min-height: 210px;
-  background: #e5e5e5;
-  border: 1px solid #ccc;
-  padding: 0;
-  overflow: hidden;
-}
-
-.composer-photo {
+.gantt-svg-wrapper {
   width: 100%;
-  height: 100%;
-  min-height: 210px;
-  object-fit: cover;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.gantt-svg {
+  min-width: 980px;
+  width: 100%;
+  height: auto;
   display: block;
+}
+
+.gantt-year {
+  font-size: 34px;
+  font-weight: 800;
+  fill: #111;
+}
+
+.gantt-axis {
+  stroke: #222;
+  stroke-width: 2;
+}
+
+.gantt-tick {
+  stroke: #999;
+  stroke-width: 1;
+}
+
+.gantt-month {
+  font-size: 12px;
+  fill: #777;
+}
+
+.gantt-guide {
+  stroke: #999;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.gantt-bar {
+  fill: #f8b4c8;
+}
+
+.gantt-dot {
+  fill: #ff2b1f;
+}
+
+.gantt-composer {
+  font-size: 15px;
+  font-weight: 700;
+  fill: #222;
+}
+
+.gantt-title-small {
+  font-size: 12px;
+  fill: #666;
+}
+
+@media (max-width: 768px) {
+  .gantt-svg {
+    min-width: 900px;
+  }
 }

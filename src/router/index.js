@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MozartView from '../views/MozartView.vue'
 import BurgmullerView from '../views/BurgmullerView.vue'
+import TimelineView from '../views/TimelineView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,19 +11,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+    },
+    {
+      path: '/timeline',
+      name: 'timeline',
+      component: TimelineView,
     },
     {
       path: '/mozart',
       name: 'mozart',
-      component: MozartView
+      component: MozartView,
     },
     {
       path: '/burgmuller',
       name: 'burgmuller',
-      component: BurgmullerView
-    }
-  ]
+      component: BurgmullerView,
+    },
+  ],
 })
 
 export default router
