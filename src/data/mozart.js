@@ -9,7 +9,7 @@ export const mozartSections = [
         id: 'mozart-k545-1',
         title: 'K545 — I movimento',
         subtitle: 'Allegro',
-        publishedAt: '2026-06-21',
+        publishedAt: '2026-05-21',
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Mozart_K545_1mvt.mid`,
@@ -22,7 +22,7 @@ export const mozartSections = [
         id: 'mozart-k545-2',
         title: 'K545 — II movimento',
         subtitle: 'Andante',
-        publishedAt: '2026-06-22',
+        publishedAt: '2026-03-22',
         duration: '5:11',
         midi: {
           full: `${BASE_URL}midi/Mozart_K545_2nd_movimento.mid`,

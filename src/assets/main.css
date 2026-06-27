@@ -44,9 +44,6 @@ body {
   font-size: 0.92rem;
   font-weight: 500;
   border-radius: 999px;
-  transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
 }
 
 .top-nav a:hover {
@@ -98,7 +95,6 @@ body {
   text-decoration: none;
   padding: 9px 12px;
   border-radius: 6px;
-  transition: background 0.15s ease;
 }
 
 .sidebar-nav a:hover {
@@ -120,6 +116,8 @@ body {
 .sidebar-nav a.router-link-active .sidebar-arrow {
   color: #0d6efd;
 }
+
+/* Content */
 
 .content {
   flex: 1;
@@ -301,7 +299,7 @@ body {
   min-width: 260px;
 }
 
-/* Timeline Gantt desktop */
+/* Timeline desktop */
 
 .gantt-svg-wrapper {
   width: 100%;
@@ -343,12 +341,8 @@ body {
   stroke-dasharray: 5 5;
 }
 
-.gantt-bar {
-  fill: #90caf9;
-}
-
 .gantt-dot {
-  fill: #1976d2;
+  fill: #ff2b1f;
 }
 
 .gantt-composer {
@@ -362,9 +356,9 @@ body {
   fill: #666;
 }
 
-/* Timeline mobile grafica */
+/* Timeline mobile */
 
-.mobile-gantt {
+.mobile-month-timeline {
   display: none;
 }
 
@@ -469,75 +463,76 @@ body {
     display: none;
   }
 
-  .mobile-gantt {
+  .mobile-month-timeline {
     display: block;
-    position: relative;
-    border-top: 1px solid #ddd;
-    padding: 14px 0 0;
+    padding-top: 14px;
   }
 
-  .mobile-gantt::before {
-    content: '';
-    position: absolute;
-    top: 14px;
-    bottom: 0;
-    left: 8px;
-    width: 2px;
-    background: #d7d7d7;
+  .mobile-month-year {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 12px;
   }
 
-  .mobile-gantt-item {
+  .mobile-month-row {
     display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 10px;
-    position: relative;
-    padding-bottom: 18px;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 0;
   }
 
-  .mobile-gantt-marker {
-    position: relative;
+  .mobile-month-label {
+    color: #666;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding-top: 2px;
   }
 
-  .mobile-gantt-dot {
-    position: absolute;
-    top: 6px;
-    left: 2px;
-    width: 14px;
-    height: 14px;
-    background: #1976d2;
-    border: 3px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px #222;
-    z-index: 2;
-  }
-
-  .mobile-gantt-content {
+  .mobile-month-content {
     min-width: 0;
   }
 
-  .mobile-gantt-date {
-    font-size: 0.78rem;
+  .mobile-month-empty {
+    color: #bbb;
+    font-size: 0.85rem;
+  }
+
+  .mobile-month-piece {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .mobile-month-piece:last-child {
+    margin-bottom: 0;
+  }
+
+  .mobile-month-dot {
+    width: 10px;
+    height: 10px;
+    background: #1976d2;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+
+  .mobile-month-date {
     color: #666;
-    margin-bottom: 5px;
+    font-size: 0.76rem;
+    margin-bottom: 2px;
   }
 
-  .mobile-gantt-bar {
-    width: 54%;
-    height: 12px;
-    background: #90caf9;
-    border-radius: 999px;
-    margin-bottom: 7px;
-  }
-
-  .mobile-gantt-composer {
-    font-weight: 700;
+  .mobile-month-composer {
     color: #222;
-    font-size: 0.95rem;
+    font-size: 0.94rem;
+    font-weight: 700;
   }
 
-  .mobile-gantt-title {
+  .mobile-month-title {
     color: #666;
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     line-height: 1.3;
   }
 }

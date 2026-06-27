@@ -3,6 +3,8 @@ import { computed } from 'vue'
 
 import { mozartSections } from '../data/mozart'
 import { burgmullerSections } from '../data/burgmuller'
+import { schumannSections } from '../data/schumann'
+import { tchaikovskySections } from '../data/tchaikovsky'
 
 const YEAR = 2026
 
@@ -21,19 +23,26 @@ const MONTHS = [
   'Dicembre',
 ]
 
+const MONTHS_SHORT = [
+  'Gen',
+  'Feb',
+  'Mar',
+  'Apr',
+  'Mag',
+  'Giu',
+  'Lug',
+  'Ago',
+  'Set',
+  'Ott',
+  'Nov',
+  'Dic',
+]
+
 const CHART_WIDTH = 1200
 const LEFT_PAD = 70
 const RIGHT_PAD = 80
 const TOP_PAD = 90
 const ROW_HEIGHT = 58
-const BAR_HEIGHT = 22
-
-function getAutoStartDate(publishedAt) {
-  const date = new Date(publishedAt)
-  date.setDate(date.getDate() - 14)
-
-  return date.toISOString().slice(0, 10)
-}
 
 function flattenPieces(sections, composer) {
   return sections.flatMap((section) =>
@@ -43,7 +52,6 @@ function flattenPieces(sections, composer) {
         ...piece,
         composer,
         collection: section.title,
-        startedAt: piece.startedAt || getAutoStartDate(piece.publishedAt),
       })),
   )
 }
@@ -52,7 +60,18 @@ const pieces = computed(() => {
   return [
     ...flattenPieces(mozartSections, 'Mozart'),
     ...flattenPieces(burgmullerSections, 'Burgmüller'),
+    ...flattenPieces(schumannSections, 'Schumann'),
+    ...flattenPieces(tchaikovskySections, 'Tchaikovsky'),
   ].sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt))
+})
+
+const mobileMonths = computed(() => {
+  return MONTHS_SHORT.map((month, index) => ({
+    month,
+    pieces: pieces.value
+      .filter((piece) => new Date(piece.publishedAt).getMonth() === index)
+      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)),
+  }))
 })
 
 const chartHeight = computed(() => TOP_PAD + pieces.value.length * ROW_HEIGHT + 80)
@@ -96,10 +115,6 @@ function shortTitle(piece) {
 
 <template>
   <section>
-    <h6 class="text-muted mb-4">Pubblicazioni</h6>
-
-    <h2 class="mb-4">Timeline</h2>
-
     <div class="gantt-svg-wrapper">
       <svg
         class="gantt-svg"
@@ -135,36 +150,27 @@ function shortTitle(piece) {
 
         <g v-for="(piece, index) in pieces" :key="`${piece.composer}-${piece.id}`">
           <line
-            :x1="xFromDate(piece.startedAt)"
-            :x2="xFromDate(piece.startedAt)"
-            :y1="rowY(index) + 8"
+            :x1="xFromDate(piece.publishedAt)"
+            :x2="xFromDate(piece.publishedAt)"
+            :y1="rowY(index) + 6"
             :y2="chartHeight - 45"
             class="gantt-guide"
           />
 
-          <rect
-            :x="xFromDate(piece.startedAt)"
-            :y="rowY(index)"
-            :width="Math.max(38, xFromDate(piece.publishedAt) - xFromDate(piece.startedAt))"
-            :height="BAR_HEIGHT"
-            rx="11"
-            class="gantt-bar"
-          />
-
           <circle
-            :cx="xFromDate(piece.startedAt) + 10"
-            :cy="rowY(index) + BAR_HEIGHT / 2"
-            r="5"
+            :cx="xFromDate(piece.publishedAt)"
+            :cy="rowY(index) + 12"
+            r="8"
             class="gantt-dot"
           />
 
-          <text :x="xFromDate(piece.publishedAt) + 18" :y="rowY(index) + 16" class="gantt-composer">
+          <text :x="xFromDate(piece.publishedAt) + 18" :y="rowY(index) + 10" class="gantt-composer">
             {{ piece.composer }}
           </text>
 
           <text
             :x="xFromDate(piece.publishedAt) + 18"
-            :y="rowY(index) + 34"
+            :y="rowY(index) + 28"
             class="gantt-title-small"
           >
             {{ shortTitle(piece) }}
@@ -173,29 +179,39 @@ function shortTitle(piece) {
       </svg>
     </div>
 
-    <div class="mobile-gantt">
-      <div
-        v-for="piece in pieces"
-        :key="`mobile-${piece.composer}-${piece.id}`"
-        class="mobile-gantt-item"
-      >
-        <div class="mobile-gantt-marker">
-          <span class="mobile-gantt-dot"></span>
+    <div class="mobile-month-timeline">
+      <div class="mobile-month-year">
+        {{ YEAR }}
+      </div>
+
+      <div v-for="month in mobileMonths" :key="month.month" class="mobile-month-row">
+        <div class="mobile-month-label">
+          {{ month.month }}
         </div>
 
-        <div class="mobile-gantt-content">
-          <div class="mobile-gantt-date">
-            {{ formatDate(piece.publishedAt) }}
-          </div>
+        <div class="mobile-month-content">
+          <div v-if="month.pieces.length === 0" class="mobile-month-empty">—</div>
 
-          <div class="mobile-gantt-bar"></div>
+          <div
+            v-for="piece in month.pieces"
+            :key="`mobile-${piece.composer}-${piece.id}`"
+            class="mobile-month-piece"
+          >
+            <span class="mobile-month-dot"></span>
 
-          <div class="mobile-gantt-composer">
-            {{ piece.composer }}
-          </div>
+            <div class="mobile-month-text">
+              <div class="mobile-month-date">
+                {{ formatDate(piece.publishedAt) }}
+              </div>
 
-          <div class="mobile-gantt-title">
-            {{ shortTitle(piece) }}
+              <div class="mobile-month-composer">
+                {{ piece.composer }}
+              </div>
+
+              <div class="mobile-month-title">
+                {{ shortTitle(piece) }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
