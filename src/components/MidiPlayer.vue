@@ -88,6 +88,18 @@ function createPiano() {
   return sampler
 }
 
+async function unlockAudio() {
+  await Tone.start()
+
+  const context = Tone.getContext()
+
+  if (context.state !== 'running') {
+    await context.resume()
+  }
+
+  console.log('Audio context:', context.state)
+}
+
 async function ensurePianoLoaded() {
   if (piano) return
 
@@ -148,6 +160,7 @@ function updateProgress() {
 function clearCurrentMidi() {
   Tone.Transport.stop()
   Tone.Transport.cancel()
+  Tone.Transport.position = 0
 
   currentTime.value = 0
 
@@ -199,12 +212,16 @@ async function play() {
   if (!getMidiUrl(props.currentPiece)) return
 
   try {
-    await Tone.start()
+    await unlockAudio()
     await ensurePianoLoaded()
+    await Tone.loaded()
     await loadMidi(props.currentPiece)
 
+    Tone.Transport.stop()
+    Tone.Transport.position = currentTime.value
     Tone.Transport.bpm.value = tempoPercent.value
-    Tone.Transport.start()
+
+    Tone.Transport.start('+0.1')
 
     isPlaying.value = true
     status.value = 'In riproduzione'
@@ -219,6 +236,15 @@ async function play() {
   }
 }
 
+async function playButtonClick() {
+  if (isPlaying.value) {
+    pause()
+    return
+  }
+
+  await play()
+}
+
 function pause() {
   Tone.Transport.pause()
 
@@ -231,6 +257,7 @@ function pause() {
 function stopAudio() {
   Tone.Transport.stop()
   Tone.Transport.cancel()
+  Tone.Transport.position = 0
 
   currentTime.value = 0
 
@@ -270,9 +297,23 @@ function changeTempo(event) {
 watch(
   () => props.currentPiece,
   async (newPiece) => {
-    if (!getMidiUrl(newPiece)) return
+    stopAudio()
+    loadedMidiKey = null
 
-    await play()
+    if (!getMidiUrl(newPiece)) {
+      status.value = 'Nessun brano selezionato'
+      return
+    }
+
+    try {
+      await ensurePianoLoaded()
+      await loadMidi(newPiece)
+
+      status.value = 'MIDI pronto - premi Play'
+    } catch (err) {
+      console.error(err)
+      status.value = 'Errore caricamento MIDI'
+    }
   },
 )
 
@@ -359,11 +400,7 @@ onUnmounted(() => {
         {{ tempoPercent }}%
       </label>
 
-      <button
-        class="btn btn-sm btn-light"
-        :disabled="!hasPlayableMidi"
-        @click="isPlaying ? pause() : play()"
-      >
+      <button class="btn btn-sm btn-light" :disabled="!hasPlayableMidi" @click="playButtonClick">
         {{ isPlaying ? '⏸' : '▶︎' }}
       </button>
 
