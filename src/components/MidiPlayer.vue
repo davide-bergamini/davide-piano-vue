@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-
 import * as Tone from 'tone'
 import { Midi } from '@tonejs/midi'
 
@@ -19,10 +18,8 @@ const emit = defineEmits(['stop', 'stop-mp3'])
 
 const isPlaying = ref(false)
 const status = ref('Nessun brano selezionato')
-
 const currentTime = ref(0)
 const totalDuration = ref(0)
-
 const tempoPercent = ref(100)
 
 let piano = null
@@ -91,7 +88,7 @@ function createPiano() {
 async function unlockAudio() {
   await Tone.start()
 
-  const context = Tone.getContext()
+  const context = Tone.getContext().rawContext
 
   if (context.state !== 'running') {
     await context.resume()
@@ -108,18 +105,12 @@ async function ensurePianoLoaded() {
     return
   }
 
-  status.value = 'Carico pianoforte...'
-
   pianoLoading = (async () => {
     piano = createPiano()
     await Tone.loaded()
   })()
 
   await pianoLoading
-
-  if (!props.currentPiece) {
-    status.value = 'Pianoforte pronto'
-  }
 }
 
 function humanizeNote(note, time) {
@@ -141,9 +132,7 @@ function formatTime(seconds) {
 }
 
 const formattedCurrentTime = computed(() => formatTime(currentTime.value))
-
 const formattedTotalDuration = computed(() => formatTime(totalDuration.value))
-
 const hasPlayableMidi = computed(() => Boolean(getMidiUrl(props.currentPiece)))
 
 function updateProgress() {
@@ -180,8 +169,6 @@ async function loadMidi(piece) {
 
   clearCurrentMidi()
 
-  status.value = 'Carico MIDI...'
-
   const response = await fetch(midiUrl)
 
   if (!response.ok) {
@@ -212,16 +199,23 @@ async function play() {
   if (!getMidiUrl(props.currentPiece)) return
 
   try {
+    status.value = 'Avvio audio...'
+
     await unlockAudio()
+
+    status.value = 'Carico pianoforte...'
     await ensurePianoLoaded()
-    await Tone.loaded()
+
+    status.value = 'Carico MIDI...'
     await loadMidi(props.currentPiece)
 
-    Tone.Transport.stop()
-    Tone.Transport.position = currentTime.value
-    Tone.Transport.bpm.value = tempoPercent.value
+    await Tone.loaded()
 
-    Tone.Transport.start('+0.1')
+    Tone.Transport.stop()
+    Tone.Transport.position = 0
+    Tone.Transport.bpm.value = 120 * (tempoPercent.value / 100)
+
+    Tone.Transport.start('+0.2')
 
     isPlaying.value = true
     status.value = 'In riproduzione'
@@ -232,7 +226,7 @@ async function play() {
     console.error(err)
 
     isPlaying.value = false
-    status.value = 'Errore caricamento MIDI'
+    status.value = 'Errore audio/MIDI'
   }
 }
 
@@ -291,29 +285,23 @@ function seek(event) {
 
 function changeTempo(event) {
   tempoPercent.value = Number(event.target.value)
-  Tone.Transport.bpm.value = tempoPercent.value
+  Tone.Transport.bpm.value = 120 * (tempoPercent.value / 100)
 }
 
 watch(
   () => props.currentPiece,
-  async (newPiece) => {
+  (newPiece) => {
     stopAudio()
     loadedMidiKey = null
+    totalDuration.value = 0
+    currentTime.value = 0
 
     if (!getMidiUrl(newPiece)) {
       status.value = 'Nessun brano selezionato'
       return
     }
 
-    try {
-      await ensurePianoLoaded()
-      await loadMidi(newPiece)
-
-      status.value = 'MIDI pronto - premi Play'
-    } catch (err) {
-      console.error(err)
-      status.value = 'Errore caricamento MIDI'
-    }
+    status.value = 'MIDI selezionato - premi Play'
   },
 )
 
