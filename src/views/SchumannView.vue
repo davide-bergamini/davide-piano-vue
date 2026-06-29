@@ -27,7 +27,7 @@ const schumannSections = ref(
 
     <div class="catalog-hero">
       <div class="catalog-cover">
-        <img src="/img/composers/Schumann.png" alt="Robert Schumann" class="composer-photo" />
+        <img src="/img/composers/Schumann.webp" alt="Robert Schumann" class="composer-photo" />
       </div>
 
       <div class="catalog-info">

@@ -70,7 +70,11 @@ onMounted(async () => {
   <section>
     <div class="catalog-hero">
       <div class="catalog-cover">
-        <img src="/img/composers/Mozart.png" alt="Wolfgang Amadeus Mozart" class="composer-photo" />
+        <img
+          src="/img/composers/Mozart.webp"
+          alt="Wolfgang Amadeus Mozart"
+          class="composer-photo"
+        />
       </div>
 
       <div class="catalog-info">

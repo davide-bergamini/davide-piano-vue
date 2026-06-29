@@ -59,7 +59,7 @@ onMounted(async () => {
     <div class="catalog-hero">
       <div class="catalog-cover">
         <img
-          src="/img/composers/Burgmuller.png"
+          src="/img/composers/Burgmuller.webp"
           alt="Friedrich Burgmüller"
           class="composer-photo"
         />

@@ -28,7 +28,7 @@ const tchaikovskySections = ref(
     <div class="catalog-hero">
       <div class="catalog-cover">
         <img
-          src="/img/composers/Tchaikovski.png"
+          src="/img/composers/Tchaikovski.webp"
           alt="Pyotr Ilyich Tchaikovsky"
           class="composer-photo"
         />
