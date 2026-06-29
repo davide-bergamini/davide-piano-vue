@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { fetchLikes, incrementLike } from '../services/likes'
+// import { fetchLikes, incrementLike } from '../services/likes'
 
 const props = defineProps({
   pieces: {
@@ -19,12 +19,12 @@ const props = defineProps({
 
 const emit = defineEmits(['select-piece', 'select-mp3'])
 
-const likes = ref({})
-const likedPieces = ref({})
+// const likes = ref({})
+// const likedPieces = ref({})
 
-function localLikeKey(pieceId) {
-  return `liked_${pieceId}`
-}
+// function localLikeKey(pieceId) {
+//   return `liked_${pieceId}`
+// }
 
 function hasMidi(piece) {
   return Boolean(piece.midi?.full)
@@ -34,76 +34,57 @@ function hasMp3(piece) {
   return Boolean(piece.mp3)
 }
 
-function hasLiked(piece) {
-  return likedPieces.value[piece.id] === true
-}
+// function hasLiked(piece) {
+//   return likedPieces.value[piece.id] === true
+// }
 
 function formatDate(dateString) {
   if (!dateString) return ''
   return new Date(dateString).toLocaleDateString('it-IT')
 }
 
-function toSuperscript(number) {
-  const map = {
-    0: '⁰',
-    1: '¹',
-    2: '²',
-    3: '³',
-    4: '⁴',
-    5: '⁵',
-    6: '⁶',
-    7: '⁷',
-    8: '⁸',
-    9: '⁹',
-  }
+// async function loadLikes() {
+//   const pieceIds = props.pieces.map((piece) => piece.id)
+//
+//   if (pieceIds.length === 0) return
+//
+//   const remoteLikes = await fetchLikes(pieceIds)
+//
+//   const loadedLikedPieces = {}
+//
+//   pieceIds.forEach((pieceId) => {
+//     loadedLikedPieces[pieceId] =
+//       localStorage.getItem(localLikeKey(pieceId)) === 'true'
+//   })
+//
+//   likes.value = remoteLikes
+//   likedPieces.value = loadedLikedPieces
+// }
 
-  return String(number)
-    .split('')
-    .map((char) => map[char] || char)
-    .join('')
-}
+// async function handleLike(piece) {
+//   if (hasLiked(piece)) return
+//
+//   const newCount = await incrementLike(piece.id)
+//
+//   if (newCount === null) return
+//
+//   likes.value[piece.id] = newCount
+//   likedPieces.value[piece.id] = true
+//
+//   localStorage.setItem(localLikeKey(piece.id), 'true')
+// }
 
-async function loadLikes() {
-  const pieceIds = props.pieces.map((piece) => piece.id)
+// onMounted(() => {
+//   loadLikes()
+// })
 
-  if (pieceIds.length === 0) return
-
-  const remoteLikes = await fetchLikes(pieceIds)
-
-  const loadedLikedPieces = {}
-
-  pieceIds.forEach((pieceId) => {
-    loadedLikedPieces[pieceId] = localStorage.getItem(localLikeKey(pieceId)) === 'true'
-  })
-
-  likes.value = remoteLikes
-  likedPieces.value = loadedLikedPieces
-}
-
-async function handleLike(piece) {
-  if (hasLiked(piece)) return
-
-  const newCount = await incrementLike(piece.id)
-
-  if (newCount === null) return
-
-  likes.value[piece.id] = newCount
-  likedPieces.value[piece.id] = true
-
-  localStorage.setItem(localLikeKey(piece.id), 'true')
-}
-
-onMounted(() => {
-  loadLikes()
-})
-
-watch(
-  () => props.pieces,
-  () => {
-    loadLikes()
-  },
-  { deep: true },
-)
+// watch(
+//   () => props.pieces,
+//   () => {
+//     loadLikes()
+//   },
+//   { deep: true },
+// )
 </script>
 
 <template>
@@ -123,21 +104,21 @@ watch(
     >
       <div class="piece-top">
         <div class="piece-title-area">
-          <span class="like-badge">
-            <button
-              class="like-button"
-              type="button"
-              :class="{ liked: hasLiked(piece) }"
-              :title="hasLiked(piece) ? 'Hai già messo Mi piace' : 'Mi piace'"
-              @click="handleLike(piece)"
-            >
-              👍︎
-            </button>
+          <!--
+          <button
+            class="like-button"
+            type="button"
+            :class="{ liked: hasLiked(piece) }"
+            :title="hasLiked(piece) ? 'Hai già messo Mi piace' : 'Mi piace'"
+            @click="handleLike(piece)"
+          >
+            <span class="like-icon">👍</span>
 
             <span v-if="(likes[piece.id] || 0) > 0" class="like-count">
-              {{ toSuperscript(likes[piece.id]) }}
+              {{ likes[piece.id] }}
             </span>
-          </span>
+          </button>
+          -->
 
           <span class="piece-title">
             {{ piece.title }}
@@ -242,58 +223,65 @@ watch(
 }
 
 .piece-title-area {
-  position: relative;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   min-width: 0;
-  padding-left: 24px;
 }
 
-.like-badge {
-  position: absolute;
-  left: 0;
-  top: -9px;
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 1px;
-  white-space: nowrap;
-}
+/*
 
 .like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
   border: 0;
   background: transparent;
+
   padding: 0;
+  margin: 0;
+
   cursor: pointer;
-  font-size: 0.82rem;
+
+  flex-shrink: 0;
+}
+
+.like-icon {
+  font-size: 1rem;
   line-height: 1;
-  opacity: 0.45;
+
+  filter: grayscale(100%);
+  opacity: .65;
+
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    transform .18s ease,
+    opacity .18s ease,
+    filter .18s ease;
 }
 
-.like-button:hover {
-  opacity: 0.85;
-  transform: scale(1.18);
+.like-button:hover .like-icon {
+  transform: scale(1.15);
+  opacity: .9;
 }
 
-.like-button.liked {
+.like-button.liked .like-icon {
+  filter: none;
   opacity: 1;
-  cursor: default;
-}
-
-.like-button.liked:hover {
-  transform: none;
 }
 
 .like-count {
-  font-size: 0.6rem;
+  font-size: .72rem;
+  font-weight: 700;
   color: #666;
   line-height: 1;
-  font-weight: 700;
-  margin-left: 1px;
 }
+
+.like-button.liked .like-count {
+  color: #1877f2;
+}
+
+*/
 
 .piece-title {
   font-size: 0.98rem;
@@ -344,15 +332,22 @@ watch(
 .icon-action {
   width: 22px;
   height: 22px;
+
   border: 0;
   background: transparent;
+
   color: #444;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
   padding: 0;
+
   text-decoration: none;
+
   appearance: none;
   -webkit-appearance: none;
 }
@@ -396,20 +391,7 @@ watch(
   }
 
   .piece-title-area {
-    padding-left: 23px;
     gap: 6px;
-  }
-
-  .like-badge {
-    top: -8px;
-  }
-
-  .like-button {
-    font-size: 0.78rem;
-  }
-
-  .like-count {
-    font-size: 0.56rem;
   }
 
   .piece-title {
