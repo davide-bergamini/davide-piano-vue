@@ -1,9 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 import AppHeader from './components/AppHeader.vue'
 import Sidebar from './components/Sidebar.vue'
 import MidiPlayer from './components/MidiPlayer.vue'
+
+const route = useRoute()
+
+const hideSidebar = computed(() => {
+  return route.path.startsWith('/discoteca')
+})
 
 const currentPiece = ref(null)
 const currentMp3 = ref(null)
@@ -31,7 +38,7 @@ function stopMp3() {
   <AppHeader />
 
   <div class="page-layout">
-    <Sidebar />
+    <Sidebar v-if="!hideSidebar" />
 
     <main class="content">
       <RouterView

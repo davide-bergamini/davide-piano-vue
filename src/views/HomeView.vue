@@ -30,8 +30,8 @@
       </div>
     </div>
 
-    <h2>MIDI Piano</h2>
-    <p>Brani classici per pianoforte con player MIDI.</p>
+    <h2>Davide Piano</h2>
+    <p>Brani per pianoforte.</p>
   </section>
 </template>
 

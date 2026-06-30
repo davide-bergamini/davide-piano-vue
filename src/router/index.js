@@ -6,6 +6,8 @@ import BurgmullerView from '../views/BurgmullerView.vue'
 import TchaikovskyView from '../views/TchaikovskyView.vue'
 import SchumannView from '../views/SchumannView.vue'
 import TimelineView from '../views/TimelineView.vue'
+import CdCollectionView from '../views/CdCollectionView.vue'
+import CdDetailView from '../views/CdDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +41,16 @@ const router = createRouter({
       path: '/schumann',
       name: 'schumann',
       component: SchumannView,
+    },
+    {
+      path: '/discoteca',
+      name: 'discoteca',
+      component: CdCollectionView,
+    },
+    {
+      path: '/discoteca/:id',
+      name: 'cd-detail',
+      component: CdDetailView,
     },
   ],
 })
