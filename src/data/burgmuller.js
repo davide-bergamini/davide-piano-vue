@@ -14,6 +14,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 1',
         subtitle: 'Candore',
         publishedAt: '2026-06-16',
+        description:
+          "Candore apre la raccolta Op. 100 con una musica semplice e spontanea, pensata per introdurre gradualmente il pianista allo stile di Burgmüller. L'esecuzione deve trasmettere naturalezza e serenità, senza eccessi espressivi. È un ottimo studio per imparare a ottenere un suono pulito, un fraseggio regolare e una buona coordinazione tra le mani, ponendo solide basi per i brani successivi della raccolta.",
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Candore_01_Burgmuller.mid`,
@@ -27,6 +29,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 2',
         subtitle: 'Arabesco',
         publishedAt: '2026-06-14',
+        description:
+          "Il titolo richiama gli eleganti motivi decorativi dell'arte araba, caratterizzati da linee continue e armoniose. Anche l'esecuzione deve risultare fluida e leggera, con movimenti naturali delle dita e un ritmo sempre regolare. Questo studio aiuta a sviluppare agilità, precisione e continuità del fraseggio senza perdere la chiarezza della melodia.",
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Arabesca_02_Burgmuller.mid`,
@@ -40,6 +44,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 3',
         subtitle: 'Pastorale',
         publishedAt: '2026-06-10',
+        description:
+          "Pastorale evoca la tranquillità della campagna e invita il pianista a creare un'atmosfera serena e rilassata. Il brano richiede un tocco morbido e una particolare attenzione alla cantabilità della melodia. Più che la velocità, conta la capacità di far respirare ogni frase musicale con equilibrio ed espressività.",
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Pastorale_03_Burgmuller.mid`,
@@ -52,6 +58,8 @@ export const burgmullerSections = [
         id: 'op100-4',
         title: 'Op. 100 n. 4',
         subtitle: 'Piccola riunione',
+        description:
+          "Questo studio descrive musicalmente l'allegria di un incontro tra amici, attraverso un dialogo vivace e ricco di piccoli contrasti. L'interpretazione deve mantenere un carattere brillante e spontaneo, valorizzando le diverse frasi senza perdere continuità. È un buon esercizio per sviluppare vivacità ritmica e precisione esecutiva.",
         duration: '—',
         midi: { full: '', right: '', left: '' },
       },
@@ -60,6 +68,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 5',
         subtitle: 'Innocenza',
         publishedAt: '2026-06-12',
+        description:
+          'Innocenza esprime semplicità e delicatezza attraverso una scrittura chiara ed essenziale. Il pianista è chiamato a evitare qualsiasi enfasi, privilegiando un suono dolce e naturale. Lo studio favorisce il controllo delle dinamiche e insegna come ottenere espressività anche con mezzi tecnici apparentemente semplici.',
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Innocenza_05_Burgmuller.mid`,
@@ -73,6 +83,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 6',
         publishedAt: '2026-06-19',
         subtitle: 'Progresso',
+        description:
+          "Come suggerisce il titolo, Progresso rappresenta un passo avanti nel percorso didattico dell'Op. 100. La scrittura diventa più articolata e richiede maggiore sicurezza nella coordinazione delle mani. Lo studio aiuta a consolidare la regolarità ritmica e a sviluppare una tecnica sempre più fluida e controllata.",
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Progresso_06_Burgmuller.mid`,
@@ -86,6 +98,8 @@ export const burgmullerSections = [
         title: 'Op. 100 n. 7',
         subtitle: 'Ruscello limpido',
         publishedAt: '2026-06-20',
+        description:
+          "Le figurazioni continue ricordano lo scorrere dell'acqua di un piccolo ruscello. L'esecuzione deve trasmettere leggerezza e naturalezza, evitando accenti eccessivi che interromperebbero il flusso musicale. È un ottimo esercizio per sviluppare uniformità nel tocco e continuità del movimento.",
         duration: '—',
         midi: {
           full: `${BASE_URL}midi/Limpido_Ruscello_07_Burgmuller.mid`,
@@ -98,6 +112,8 @@ export const burgmullerSections = [
         id: 'op100-8',
         title: 'Op. 100 n. 8',
         subtitle: 'La graziosa',
+        description:
+          'La graziosa è uno degli studi più eleganti dell’Op. 100 di Burgmüller. Il titolo suggerisce subito il carattere del brano: leggerezza, naturalezza e buon gusto. Non serve suonarlo con forza, ma con misura, cercando una linea melodica pulita e un accompagnamento discreto. È un piccolo studio di stile, utile per imparare a rendere espressivo anche un brano breve e apparentemente semplice.',
         publishedAt: '2026-06-21',
         duration: '—',
         midi: {
@@ -111,6 +127,8 @@ export const burgmullerSections = [
         id: 'op100-9',
         title: 'Op. 100 n. 9',
         subtitle: 'La caccia',
+        description:
+          'Il galoppo dei cavalli, l’abbaiare dei cani e il richiamo dei corni sembrano prendere vita in questo studio dal carattere vivace. Burgmüller non descrive una vera scena di caccia, ma ne suggerisce l’entusiasmo e il continuo senso di movimento. La musica deve conservare energia e slancio, come una corsa attraverso boschi e prati.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -119,6 +137,8 @@ export const burgmullerSections = [
         id: 'op100-10',
         title: 'Op. 100 n. 10',
         subtitle: 'Fiore delicato',
+        description:
+          'Questo brano invita a osservare la bellezza delle cose più semplici. Come un piccolo fiore che sboccia in silenzio, la melodia cresce con naturalezza e discrezione, senza mai cercare di imporsi. L’atmosfera è intima e serena, e ogni frase dovrebbe essere eseguita con la stessa cura che si riserva a qualcosa di prezioso e fragile.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -127,6 +147,8 @@ export const burgmullerSections = [
         id: 'op100-11',
         title: 'Op. 100 n. 11',
         subtitle: 'La ballerina',
+        description:
+          'La musica sembra seguire i passi leggeri di una giovane ballerina che si muove con eleganza e sicurezza. Ogni frase richiama un movimento armonioso, alternando grazia e vivacità senza mai perdere equilibrio. Più che la velocità, conta la capacità di trasmettere leggerezza e naturalezza.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -135,6 +157,8 @@ export const burgmullerSections = [
         id: 'op100-12',
         title: 'Op. 100 n. 12',
         subtitle: 'Addio',
+        description:
+          'Addio racconta il momento delicato di una separazione, senza drammaticità ma con una vena di malinconia. La musica sembra voltarsi un’ultima volta prima di allontanarsi lentamente, lasciando un ricordo sereno. È un brano che invita ad ascoltare il silenzio tra le frasi tanto quanto le note stesse.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -143,6 +167,8 @@ export const burgmullerSections = [
         id: 'op100-13',
         title: 'Op. 100 n. 13',
         subtitle: 'Consolazione',
+        description:
+          'Dopo la malinconia di Addio, Burgmüller offre una pagina che trasmette conforto e speranza. La melodia procede con calma, come le parole gentili di una persona che riesce a rassicurare chi soffre. L’atmosfera è raccolta e luminosa, invitando il pianista a cercare un’espressione sincera e pacata.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -151,6 +177,8 @@ export const burgmullerSections = [
         id: 'op100-14',
         title: 'Op. 100 n. 14',
         subtitle: 'Stiriana',
+        description:
+          'Il titolo rimanda alle danze popolari della Stiria, regione dell’Austria ricca di tradizioni musicali. Il ritmo vivace e il carattere festoso fanno immaginare una danza eseguita in piazza durante una festa di paese. La musica conserva sempre un’eleganza raffinata, pur mantenendo tutta l’energia tipica della danza.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -159,6 +187,8 @@ export const burgmullerSections = [
         id: 'op100-15',
         title: 'Op. 100 n. 15',
         subtitle: 'Ballata',
+        description:
+          'Nella tradizione romantica la ballata racconta una storia attraverso la musica. Anche questo brano sembra accompagnare l’ascoltatore lungo un piccolo racconto, alternando momenti di calma e di maggiore intensità. Più che descrivere un episodio preciso, Burgmüller lascia spazio all’immaginazione di chi ascolta.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },
@@ -167,6 +197,8 @@ export const burgmullerSections = [
         id: 'op100-16',
         title: 'Op. 100 n. 16',
         subtitle: 'Dolce lamento',
+        description:
+          'Il titolo suggerisce una tristezza composta e mai disperata. La melodia sembra una voce che racconta con dolcezza un ricordo lontano, senza perdere la serenità. L’atmosfera è intima e riflessiva, e invita il pianista a lasciare che ogni frase si sviluppi con naturalezza, senza eccessi espressivi.',
         publishedAt: '',
         duration: '—',
         midi: { full: '', right: '', left: '' },

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref } from 'vue'
 // import { fetchLikes, incrementLike } from '../services/likes'
 
 const props = defineProps({
@@ -19,12 +19,7 @@ const props = defineProps({
 
 const emit = defineEmits(['select-piece', 'select-mp3'])
 
-// const likes = ref({})
-// const likedPieces = ref({})
-
-// function localLikeKey(pieceId) {
-//   return `liked_${pieceId}`
-// }
+const selectedPiece = ref(null)
 
 function hasMidi(piece) {
   return Boolean(piece.midi?.full)
@@ -34,57 +29,23 @@ function hasMp3(piece) {
   return Boolean(piece.mp3)
 }
 
-// function hasLiked(piece) {
-//   return likedPieces.value[piece.id] === true
-// }
+function hasDescription(piece) {
+  return Boolean(piece.description)
+}
+
+function openDescription(piece) {
+  if (!hasDescription(piece)) return
+  selectedPiece.value = piece
+}
+
+function closeDescription() {
+  selectedPiece.value = null
+}
 
 function formatDate(dateString) {
   if (!dateString) return ''
   return new Date(dateString).toLocaleDateString('it-IT')
 }
-
-// async function loadLikes() {
-//   const pieceIds = props.pieces.map((piece) => piece.id)
-//
-//   if (pieceIds.length === 0) return
-//
-//   const remoteLikes = await fetchLikes(pieceIds)
-//
-//   const loadedLikedPieces = {}
-//
-//   pieceIds.forEach((pieceId) => {
-//     loadedLikedPieces[pieceId] =
-//       localStorage.getItem(localLikeKey(pieceId)) === 'true'
-//   })
-//
-//   likes.value = remoteLikes
-//   likedPieces.value = loadedLikedPieces
-// }
-
-// async function handleLike(piece) {
-//   if (hasLiked(piece)) return
-//
-//   const newCount = await incrementLike(piece.id)
-//
-//   if (newCount === null) return
-//
-//   likes.value[piece.id] = newCount
-//   likedPieces.value[piece.id] = true
-//
-//   localStorage.setItem(localLikeKey(piece.id), 'true')
-// }
-
-// onMounted(() => {
-//   loadLikes()
-// })
-
-// watch(
-//   () => props.pieces,
-//   () => {
-//     loadLikes()
-//   },
-//   { deep: true },
-// )
 </script>
 
 <template>
@@ -104,25 +65,14 @@ function formatDate(dateString) {
     >
       <div class="piece-top">
         <div class="piece-title-area">
-          <!--
           <button
-            class="like-button"
             type="button"
-            :class="{ liked: hasLiked(piece) }"
-            :title="hasLiked(piece) ? 'Hai già messo Mi piace' : 'Mi piace'"
-            @click="handleLike(piece)"
+            class="piece-title"
+            :class="{ clickable: hasDescription(piece) }"
+            @click="openDescription(piece)"
           >
-            <span class="like-icon">👍</span>
-
-            <span v-if="(likes[piece.id] || 0) > 0" class="like-count">
-              {{ likes[piece.id] }}
-            </span>
-          </button>
-          -->
-
-          <span class="piece-title">
             {{ piece.title }}
-          </span>
+          </button>
 
           <span v-if="piece.subtitle" class="piece-subtitle desktop-subtitle">
             {{ piece.subtitle }}
@@ -180,6 +130,21 @@ function formatDate(dateString) {
         {{ piece.subtitle }}
       </div>
     </div>
+
+    <div v-if="selectedPiece" class="piece-modal-backdrop" @click="closeDescription">
+      <div class="piece-modal" @click.stop>
+        <button type="button" class="modal-close" title="Chiudi" @click="closeDescription">
+          ×
+        </button>
+
+        <h3>
+          {{ selectedPiece.title }}
+          <span v-if="selectedPiece.subtitle"> — {{ selectedPiece.subtitle }} </span>
+        </h3>
+
+        <p>{{ selectedPiece.description }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -229,65 +194,27 @@ function formatDate(dateString) {
   min-width: 0;
 }
 
-/*
-
-.like-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-
-  border: 0;
-  background: transparent;
-
-  padding: 0;
-  margin: 0;
-
-  cursor: pointer;
-
-  flex-shrink: 0;
-}
-
-.like-icon {
-  font-size: 1rem;
-  line-height: 1;
-
-  filter: grayscale(100%);
-  opacity: .65;
-
-  transition:
-    transform .18s ease,
-    opacity .18s ease,
-    filter .18s ease;
-}
-
-.like-button:hover .like-icon {
-  transform: scale(1.15);
-  opacity: .9;
-}
-
-.like-button.liked .like-icon {
-  filter: none;
-  opacity: 1;
-}
-
-.like-count {
-  font-size: .72rem;
-  font-weight: 700;
-  color: #666;
-  line-height: 1;
-}
-
-.like-button.liked .like-count {
-  color: #1877f2;
-}
-
-*/
-
 .piece-title {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
   font-size: 0.98rem;
   font-weight: 700;
   color: #222;
   white-space: nowrap;
+  text-align: left;
+}
+
+.piece-title.clickable {
+  color: #1d4ed8;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.piece-title.clickable:hover {
+  color: #2563eb;
+  text-decoration: underline;
 }
 
 .piece-subtitle {
@@ -332,22 +259,15 @@ function formatDate(dateString) {
 .icon-action {
   width: 22px;
   height: 22px;
-
   border: 0;
   background: transparent;
-
   color: #444;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-
   padding: 0;
-
   text-decoration: none;
-
   appearance: none;
   -webkit-appearance: none;
 }
@@ -371,6 +291,56 @@ function formatDate(dateString) {
 
 .muted {
   color: #aaa;
+}
+
+.piece-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.piece-modal {
+  position: relative;
+  width: min(92vw, 420px);
+  max-height: 78vh;
+  overflow-y: auto;
+  padding: 24px;
+  border-radius: 16px;
+  background: #fff;
+  color: #212529;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+}
+
+.piece-modal h3 {
+  margin: 0 30px 14px 0;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #212529;
+}
+
+.piece-modal p {
+  margin: 0;
+  line-height: 1.55;
+  color: #495057;
+  font-size: 0.98rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: 0;
+  background: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #495057;
 }
 
 @media (max-width: 768px) {
@@ -436,6 +406,20 @@ function formatDate(dateString) {
 
   .playing-label {
     display: none;
+  }
+
+  .piece-modal {
+    width: 94vw;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .piece-modal h3 {
+    font-size: 1.08rem;
+  }
+
+  .piece-modal p {
+    font-size: 0.94rem;
   }
 }
 </style>
