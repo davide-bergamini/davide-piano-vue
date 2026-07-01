@@ -9,7 +9,7 @@ import MidiPlayer from './components/MidiPlayer.vue'
 const route = useRoute()
 
 const hideSidebar = computed(() => {
-  return route.path.startsWith('/discoteca')
+  return route.path.startsWith('/discoteca') || route.path.startsWith('/jazz')
 })
 
 const currentPiece = ref(null)
@@ -40,7 +40,7 @@ function stopMp3() {
   <div class="page-layout">
     <Sidebar v-if="!hideSidebar" />
 
-    <main class="content">
+    <main class="content" :class="{ 'content-full': hideSidebar }">
       <RouterView
         :current-piece="currentPiece"
         @select-piece="setCurrentPiece"

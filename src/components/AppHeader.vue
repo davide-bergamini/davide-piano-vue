@@ -5,9 +5,11 @@
     <nav class="top-nav">
       <RouterLink to="/mozart"> Musica classica </RouterLink>
 
-      <RouterLink to="/timeline"> Il mio percorso </RouterLink>
+      <!-- <RouterLink to="/jazz"> Musica jazz </RouterLink> -->
 
-      <!-- <a href="#"> Musica jazz </a> -->
+      <span class="nav-spacer"></span>
+
+      <RouterLink to="/timeline"> Il mio percorso </RouterLink>
     </nav>
   </header>
 </template>

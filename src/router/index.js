@@ -8,6 +8,7 @@ import SchumannView from '../views/SchumannView.vue'
 import TimelineView from '../views/TimelineView.vue'
 import CdCollectionView from '../views/CdCollectionView.vue'
 import CdDetailView from '../views/CdDetailView.vue'
+import JazzView from '../views/JazzView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/discoteca',
       name: 'discoteca',
       component: CdCollectionView,
+    },
+    {
+      path: '/jazz',
+      name: 'jazz',
+      component: JazzView,
     },
     {
       path: '/discoteca/:id',
