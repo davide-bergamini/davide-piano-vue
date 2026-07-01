@@ -1,3 +1,30 @@
+<script setup>
+const modules = import.meta.glob('../data/*.js', {
+  eager: true,
+})
+
+const allPieces = Object.values(modules).flatMap((module) =>
+  Object.values(module)
+    .filter(Array.isArray)
+    .flatMap((sections) =>
+      sections
+        .filter((section) => section && Array.isArray(section.pieces))
+        .flatMap((section) =>
+          section.pieces.map((piece) => ({
+            ...piece,
+            sectionTitle: section.title || '',
+            composerName: section.composer || '',
+            composerImage: section.image || '',
+          })),
+        ),
+    ),
+)
+
+const latestPiece = allPieces
+  .filter((piece) => piece.publishedAt && piece.mp3)
+  .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))[0]
+</script>
+
 <template>
   <section class="home-animation">
     <div class="pianist">
@@ -15,14 +42,11 @@
         <div class="black-keys">
           <span class="black-key key-cs"></span>
           <span class="black-key key-ds"></span>
-
           <span class="black-key key-fs"></span>
           <span class="black-key key-gs"></span>
           <span class="black-key key-as"></span>
-
           <span class="black-key key-cs-2"></span>
           <span class="black-key key-ds-2"></span>
-
           <span class="black-key key-fs-2"></span>
           <span class="black-key key-gs-2"></span>
           <span class="black-key key-as-2"></span>
@@ -32,6 +56,33 @@
 
     <h2>Davide Piano</h2>
     <p>Brani per pianoforte.</p>
+
+    <section v-if="latestPiece" class="latest-piece">
+      <h3>Ultimo brano caricato</h3>
+
+      <div class="latest-row">
+        <div v-if="latestPiece.composerImage" class="composer-portrait">
+          <img :src="latestPiece.composerImage" :alt="latestPiece.composerName" />
+        </div>
+
+        <div class="latest-info">
+          <h4 class="composer-name">
+            {{ latestPiece.composerName }}
+          </h4>
+
+          <div class="piece-row">
+            <p class="piece-title">
+              {{ latestPiece.title }}
+              <span v-if="latestPiece.subtitle"> — {{ latestPiece.subtitle }} </span>
+            </p>
+
+            <audio controls class="mini-audio" :src="latestPiece.mp3">
+              Il tuo browser non supporta l'audio.
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
   </section>
 </template>
 
@@ -90,7 +141,6 @@
   position: relative;
   display: flex;
   height: 100%;
-  gap: 0;
   background: #111;
 }
 
@@ -125,49 +175,115 @@
   height: 36px;
   background: #050505;
   border-radius: 0 0 3px 3px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
 }
 
-/* prima ottava */
 .key-cs {
   left: 11px;
 }
-
 .key-ds {
   left: 27px;
 }
-
 .key-fs {
   left: 59px;
 }
-
 .key-gs {
   left: 75px;
 }
-
 .key-as {
   left: 91px;
 }
-
-/* seconda ottava */
 .key-cs-2 {
   left: 124px;
 }
-
 .key-ds-2 {
   left: 140px;
 }
-
 .key-fs-2 {
   left: 172px;
 }
-
 .key-gs-2 {
   left: 188px;
 }
-
 .key-as-2 {
   left: 204px;
+}
+
+.home-animation h2 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.home-animation p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.latest-piece {
+  width: min(90%, 760px);
+  margin-top: 24px;
+  padding: 18px 22px;
+  border-top: 2px solid #dee2e6;
+  text-align: left;
+}
+
+.latest-piece h3 {
+  margin: 0 0 18px;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.latest-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.composer-portrait {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #adb5bd;
+}
+
+.composer-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.latest-info {
+  flex: 1;
+}
+
+.composer-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.piece-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.piece-title {
+  margin: 3px 0 0;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.mini-audio {
+  width: 170px;
+  height: 32px;
+  accent-color: #198754;
 }
 
 @keyframes floatNote {
@@ -194,12 +310,25 @@
   }
 }
 
-.home-animation h2 {
-  margin: 0;
-  font-size: 2.2rem;
-}
+@media (max-width: 600px) {
+  .latest-row {
+    align-items: flex-start;
+  }
 
-.home-animation p {
-  color: #6c757d;
+  .composer-portrait {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .piece-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .mini-audio {
+    width: 100%;
+  }
 }
 </style>

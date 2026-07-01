@@ -4,6 +4,8 @@ export const mozartSections = [
   {
     id: 'mozart-k545',
     title: 'Sonata facile K545',
+    composer: 'Wolfgang Amadeus Mozart',
+    image: `${BASE_URL}img/composers/mozart.webp`,
     pieces: [
       {
         id: 'mozart-k545-1',

@@ -4,6 +4,10 @@ export const burgmullerSections = [
   {
     id: 'burgmuller-op100',
     title: '25 Studi facili e progressivi Op. 100',
+    id: 'burgmuller-op100',
+    title: '25 Studi facili e progressivi Op. 100',
+    composer: 'Friedrich Burgmüller',
+    image: `${BASE_URL}img/composers/Burgmuller.webp`,
     pieces: [
       {
         id: 'op100-1',
