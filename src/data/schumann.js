@@ -56,7 +56,7 @@ export const schumannSections = [
         mp3: '',
       },
       {
-        id: 'op68-18',
+        id: 'op68-6',
         number: '5',
         title: 'Op. 68 n. 6',
         subtitle: 'La povera orfanella',
@@ -69,7 +69,7 @@ export const schumannSections = [
         mp3: '',
       },
       {
-        id: 'op68-18',
+        id: 'op68-7',
         number: '6',
         title: 'Op. 68 n. 7',
         subtitle: 'Canzonetta del cacciatore',
