@@ -337,6 +337,16 @@ body {
   color: inherit;
 }
 
+.admin-pill {
+  opacity: 0.65;
+}
+
+@media (max-width: 768px) {
+  .admin-pill {
+    display: none !important;
+  }
+}
+
 .gantt-dot-link {
   cursor: pointer;
 }
@@ -419,6 +429,142 @@ body {
 
 .gantt-svg a text {
   text-decoration: none;
+}
+/* Admin */
+
+.admin-page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-section {
+  padding: 24px 0;
+}
+
+.admin-section h3 {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+}
+
+.admin-section label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.admin-section input {
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid #ccc;
+  font: inherit;
+}
+
+.admin-section button,
+.admin-logout {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 8px 14px;
+  border: 0;
+  background: #222;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-section button {
+  margin-left: 0;
+}
+
+.admin-section button:hover,
+.admin-logout:hover {
+  background: #000;
+}
+
+.admin-section button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-error {
+  color: #b00020;
+  font-weight: 600;
+}
+
+.admin-status {
+  margin-top: 12px;
+  color: #495057;
+  font-size: 0.92rem;
+}
+
+.admin-file-button {
+  margin-bottom: 6px;
+}
+
+.admin-file-name {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 0.92rem;
+}
+
+.admin-file-name:empty {
+  display: none;
+}
+
+.admin-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-file-name {
+  flex: 1;
+  color: #666;
+  font-size: 0.92rem;
+  min-width: 220px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    max-width: none;
+  }
+
+  .admin-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .admin-section input {
+    max-width: none;
+  }
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.admin-field input {
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+}
+
+.admin-field button {
+  margin: 0;
 }
 
 /* Timeline mobile */

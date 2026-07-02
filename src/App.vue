@@ -12,7 +12,8 @@ const hideSidebar = computed(() => {
   return (
     route.path.startsWith('/discoteca') ||
     route.path.startsWith('/jazz') ||
-    route.path.startsWith('/timeline')
+    route.path.startsWith('/timeline') ||
+    route.path.startsWith('/admin')
   )
 })
 
@@ -44,7 +45,7 @@ function stopMp3() {
   <div class="page-layout">
     <Sidebar v-if="!hideSidebar" />
 
-    <main class="content" :class="{ 'content-full': hideSidebar }">
+    <main :class="hideSidebar ? 'content-admin' : 'content'">
       <RouterView
         :current-piece="currentPiece"
         @select-piece="setCurrentPiece"
@@ -61,3 +62,13 @@ function stopMp3() {
     @stop-mp3="stopMp3"
   />
 </template>
+
+<style scoped>
+.content-admin {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  min-width: 0;
+}
+</style>

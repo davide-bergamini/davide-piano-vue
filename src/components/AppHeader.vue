@@ -9,6 +9,8 @@
 
       <span class="nav-spacer"></span>
 
+      <RouterLink to="/admin" class="admin-pill"> Admin </RouterLink>
+
       <RouterLink to="/timeline"> Il mio percorso </RouterLink>
     </nav>
   </header>

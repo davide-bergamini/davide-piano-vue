@@ -9,6 +9,7 @@ import TimelineView from '../views/TimelineView.vue'
 import CdCollectionView from '../views/CdCollectionView.vue'
 import CdDetailView from '../views/CdDetailView.vue'
 import JazzView from '../views/JazzView.vue'
+import ClassicalPiecesView from '../views/ClassicalPiecesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,16 @@ const router = createRouter({
       path: '/discoteca/:id',
       name: 'cd-detail',
       component: CdDetailView,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue'),
+    },
+    {
+      path: '/classica-cms',
+      name: 'classical-cms',
+      component: ClassicalPiecesView,
     },
   ],
 })
