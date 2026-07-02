@@ -13,7 +13,8 @@ const hideSidebar = computed(() => {
     route.path.startsWith('/discoteca') ||
     route.path.startsWith('/jazz') ||
     route.path.startsWith('/timeline') ||
-    route.path.startsWith('/admin')
+    route.path.startsWith('/admin') ||
+    route.path.startsWith('/info')
   )
 })
 

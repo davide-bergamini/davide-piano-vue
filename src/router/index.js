@@ -69,6 +69,11 @@ const router = createRouter({
       name: 'classical-cms',
       component: ClassicalPiecesView,
     },
+    {
+      path: '/info',
+      name: 'info',
+      component: () => import('../views/InfoView.vue'),
+    },
   ],
 })
 
